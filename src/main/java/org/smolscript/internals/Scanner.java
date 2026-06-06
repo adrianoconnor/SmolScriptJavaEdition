@@ -1,5 +1,6 @@
 package org.smolscript.internals;
 
+import java.lang.annotation.Documented;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -45,6 +46,11 @@ public class Scanner {
         put("finally", TokenType.FINALLY);
         put("throw", TokenType.THROW);
     }};
+
+    public static List<Token> scan(String source) throws Exception {
+        Scanner scanner = new Scanner(source);
+        return scanner.scanTokens();
+    }
 
     public Scanner(String source) {
         this.source = source;
