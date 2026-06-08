@@ -5,4 +5,9 @@ public class SmolUndefined extends SmolVariableType {
     public Object GetValue() {
         return null;
     }
+
+    @Override
+    public String toString() {
+        return "Undefined";
+    }
 }

@@ -2,7 +2,7 @@ package org.smolscript.internals.variableTypes;
 
 public class SmolNumber extends SmolVariableType implements ISmolNativeCallable {
 
-    private double numberValue;
+    public double numberValue;
 
     public SmolNumber(double numberValue) {
         this.numberValue = numberValue;
@@ -25,6 +25,11 @@ public class SmolNumber extends SmolVariableType implements ISmolNativeCallable 
 
     @Override
     public Object GetValue() {
-        return null;
+        return this.numberValue;
+    }
+
+    @Override
+    public String toString() {
+        return "Number (value=" + numberValue + ")";
     }
 }

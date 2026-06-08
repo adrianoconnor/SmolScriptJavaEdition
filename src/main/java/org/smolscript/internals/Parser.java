@@ -480,9 +480,8 @@ public class Parser {
 
         Statement initialiser = null;
 
-        if (match(TokenType.SEMICOLON))
-        {
-            initialiser = null;
+        if (check(TokenType.SEMICOLON)) {
+            consume(TokenType.SEMICOLON, null); // If there's no initializer we just consume the ;
         }
         else if (match(TokenType.VAR))
         {
@@ -840,7 +839,7 @@ public class Parser {
             do { args.add(expression()); } while (match(TokenType.COMMA));
         }
 
-        var closingParen = consume(TokenType.RIGHT_BRACKET, "Expected )");
+        consume(TokenType.RIGHT_BRACKET, "Expected )");
 
         return new CallExpression(callee, args.toArray(new Expression[0]), isFollowingGetter);
     }
@@ -1050,14 +1049,15 @@ public class Parser {
 
     private Boolean isInFatArrow(Boolean openBracketconsumed)
     {
-        // If we've jsut consumed an opening bracket we need to look ahead for
+        // If we've just consumed an opening bracket we need to look ahead for
         //  (x) =>
         // or
         //  (x, y, z) =>
 
         var index = currentTokenIndex;
 
-        // If we're looking at an expression, the current token could be an identifier and we just need to check if the next token is =>
+        // If we're looking at an expression, the current token could be an identifier,
+        // and we just need to check if the next token is =>
 
         if (!openBracketconsumed)
         {

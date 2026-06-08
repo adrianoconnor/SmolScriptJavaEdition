@@ -4,14 +4,14 @@ import org.smolscript.internals.stackTypes.SmolStackType;
 
 public abstract class SmolVariableType extends SmolStackType {
 
-    public abstract Object GetValue();
+    public abstract Object GetValue(); // TODO: Rename
 
     protected String getTypeName()
     {
         return this.getClass().getName().replace("Smol", "");
     }
 
-    protected static SmolVariableType Create(Object value) throws Exception {
+    public static SmolVariableType create(Object value) {
 
         if (value == null)  {
             return new SmolNull();
@@ -32,7 +32,8 @@ public abstract class SmolVariableType extends SmolStackType {
             return new SmolBool(castValue);
         }
 
-        throw new Exception("Could not create a valid SmolVariable object from {value.GetType()}");
+        return null; // TODO: ??? Not sure how we want to handle errors in the compiler in Java
+        // throw new Exception("Could not create a valid SmolVariable object from {value.GetType()}");
     }
 /*
     public static SmolVariableType operator +(SmolVariableType a, SmolVariableType b)
@@ -257,14 +258,12 @@ public abstract class SmolVariableType extends SmolStackType {
     }
     */
 
-    public boolean IsTruthy()
-    {
+    public boolean isTruthy() {
         return (boolean)this.GetValue();
     }
 
-    public boolean IsFalsey()
-    {
-        return !IsTruthy();
+    public boolean isFalsey() {
+        return !isTruthy();
     }
 
 }
